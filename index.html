@@ -17,6 +17,18 @@
     a { color: #0066cc; text-decoration: none; }
     a:hover { text-decoration: underline; }
     footer { text-align: center; padding: 2rem; color: #666; font-size: .9rem; }
+
+    /* slideshow */
+    .slideshow { position: relative; cursor: pointer; }
+    .slideshow img { 
+      width: 100%; 
+      border-radius: 8px; 
+      position: absolute; 
+      top: 0; left: 0; 
+      opacity: 0; 
+      transition: opacity 0.4s ease; 
+    }
+    .slideshow img.active { opacity: 1; position: relative; }
   </style>
 </head>
 
@@ -50,15 +62,17 @@
       <p><a href="https://github.com/ParkerWilliams1/gemo">View code</a></p>
     </div>
 
-
     <div class="project">
       <h3>Big Sister Bot · Skincare Recommender</h3>
       <p>Collaborated on UI/UX and layout for a skincare recommendation app using user data for personalized suggestions. Designed icons, color palette, and user flow.</p>
 
-      <a href="https://www.figma.com/proto/zfaKPR5C2cj47xSKCmiVeo/FinalFigmaUPDATED?node-id=0-1&t=uX5sgB90bjYYDxv6-1" target="_blank">
-      <img src="images/bsb_ui.png" alt="BSB UI mockup">
-      </a>
-      <p><em>Click image to open interactive prototype in Figma</em></p>
+      <div class="slideshow" onclick="nextSlide(this)">
+        <img src="images/bsb_all_screens.png" alt="BSB UI wireframe" class="active">
+        <img src="images/bsb_ui.png" alt="BSB final mockup">
+      </div>
+      <p><em>Click image to toggle between wireframe and final mockup</em></p>
+
+      <p><a href="https://www.figma.com/proto/zfaKPR5C2cj47xSKCmiVeo/FinalFigmaUPDATED?node-id=0-1&t=uX5sgB90bjYYDxv6-1" target="_blank">Open prototype in Figma</a></p>
     </div>
 
     <div class="project">
@@ -70,12 +84,22 @@
 
   <section>
     <h2>Contact</h2>
-    <p>Email me at <a href="mailto:grace.g.bergquist@gmail.com">gracebergquist@example.com</a> or connect via 
+    <p>Email me at <a href="mailto:grace.g.bergquist@gmail.com">grace.g.bergquist@gmail.com</a> or connect via 
        <a href="https://www.linkedin.com/in/grace-bergquist/">LinkedIn</a>.</p>
   </section>
 
   <footer>
     <p>© 2025 Grace Bergquist · Hosted on GitHub Pages</p>
   </footer>
+
+  <script>
+  function nextSlide(container) {
+    const imgs = container.querySelectorAll("img");
+    const active = container.querySelector("img.active");
+    active.classList.remove("active");
+    const next = active.nextElementSibling || imgs[0];
+    next.classList.add("active");
+  }
+  </script>
 </body>
 </html>
