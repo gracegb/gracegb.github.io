@@ -19,7 +19,7 @@
     footer { text-align: center; padding: 2rem; color: #666; font-size: .9rem; }
 
     /* slideshow */
-    .slideshow { position: relative; cursor: pointer; }
+    .slideshow { position: relative; text-align: center; }
     .slideshow img { 
       width: 100%; 
       border-radius: 8px; 
@@ -29,6 +29,20 @@
       transition: opacity 0.4s ease; 
     }
     .slideshow img.active { opacity: 1; position: relative; }
+    .slide-btn {
+      position: relative;
+      display: block;
+      margin: 0.5rem auto 0;
+      padding: 0.4rem 1rem;
+      background: #0066cc;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+    .slide-btn:hover { background: #004f99; }
   </style>
 </head>
 
@@ -44,7 +58,7 @@
 
   <section>
     <h2>About</h2>
-    <p>I'm a CS and Graphic Design student at California Baptist University focused on human-computer interaction, interface design, and intelligent systems. My background spans UI/UX, applied AI, and defense software development.</p>
+    <p>I'm a CS student with a design background at California Baptist University focused on human-computer interaction, interface design, and intelligent systems. My background spans UI/UX, applied AI, and defense software development.</p>
   </section>
 
   <section>
@@ -66,11 +80,12 @@
       <h3>Big Sister Bot · Skincare Recommender</h3>
       <p>Collaborated on UI/UX and layout for a skincare recommendation app using user data for personalized suggestions. Designed icons, color palette, and user flow.</p>
 
-      <div class="slideshow" onclick="nextSlide(this)">
+      <div class="slideshow">
         <img src="images/bsb_all_screens.png" alt="BSB UI wireframe" class="active">
         <img src="images/bsb_ui.png" alt="BSB final mockup">
+        <button class="slide-btn" onclick="nextSlide(this)">Next</button>
       </div>
-      <p><em>Click image to toggle between wireframe and final mockup</em></p>
+      <p><em>Click “Next” to toggle between wireframe and final mockup</em></p>
 
       <p><a href="https://www.figma.com/proto/zfaKPR5C2cj47xSKCmiVeo/FinalFigmaUPDATED?node-id=0-1&t=uX5sgB90bjYYDxv6-1" target="_blank">Open prototype in Figma</a></p>
     </div>
@@ -80,7 +95,6 @@
       <p>Developing a custom game engine in LWJGL for a narrative-driven card game. Handling design, gameplay logic, and story integration. Currently in design phase.</p>
     </div>
   </section>
-  
 
   <section>
     <h2>Contact</h2>
@@ -93,11 +107,14 @@
   </footer>
 
   <script>
-  function nextSlide(container) {
+  function nextSlide(button) {
+    const container = button.closest(".slideshow");
     const imgs = container.querySelectorAll("img");
     const active = container.querySelector("img.active");
     active.classList.remove("active");
-    const next = active.nextElementSibling || imgs[0];
+    const next = active.nextElementSibling && active.nextElementSibling.tagName === "IMG"
+      ? active.nextElementSibling
+      : imgs[0];
     next.classList.add("active");
   }
   </script>
