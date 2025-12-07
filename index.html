@@ -18,6 +18,31 @@
     a:hover { text-decoration: underline; }
     footer { text-align: center; padding: 2rem; color: #666; font-size: .9rem; }
 
+    /* tabs */
+    .tab-header { display: flex; gap: 0.75rem; align-items: flex-end; margin-bottom: 1rem; }
+    .tab-btn {
+      font-size: 1.4rem;
+      font-weight: 700;
+      background: none;
+      border: none;
+      padding: 0.25rem 0.6rem;
+      border-bottom: 2px solid transparent;
+      color: #222;
+      cursor: pointer;
+    }
+    .tab-btn.active { border-color: #0066cc; color: #0066cc; }
+    .tab-btn:focus-visible { outline: 2px solid #0066cc; outline-offset: 2px; }
+
+    .tab-panels { position: relative; overflow: hidden; }
+    .tab-track {
+      display: flex;
+      width: 200%;
+      transform: translateX(0);
+      transition: transform 0.45s ease;
+    }
+    .tab-track.show-research { transform: translateX(-50%); }
+    .tab-panel { flex: 0 0 50%; padding: 0.25rem 0; }
+
     /* slideshow */
     .slideshow { position: relative; text-align: center; }
     .slideshow img { 
@@ -62,38 +87,64 @@
   </section>
 
   <section>
-    <h2>Featured Projects</h2>
-
-    <div class="project">
-      <h3>Gemo · College Connection App</h3>
-      <p>Designed the user interface in Figma and engineered the backend with Firebase and Firestore for real-time student pairing. Created visual identity, flow, and data structure.</p>
-
-      <a href="https://www.figma.com/proto/rI75nsc1Zceq0Mgsyzbr2H/EGR302---gemo?node-id=69-19&t=z5oEXzA1VDTi8Aoy-1&starting-point-node-id=14%3A24" target="_blank">
-      <img src="images/gemo_ui.png" alt="Gemo UI mockup">
-      </a>
-      <p><em>Click image to open interactive prototype in Figma</em></p>
-
-      <p><a href="https://github.com/ParkerWilliams1/gemo">View code</a></p>
+    <div class="tab-header" role="tablist" aria-label="Work">
+      <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="projects-panel" data-target="projects">Featured Projects</button>
+      <button class="tab-btn" role="tab" aria-selected="false" aria-controls="research-panel" data-target="research">Research</button>
     </div>
 
-    <div class="project">
-      <h3>Big Sister Bot · Skincare Recommender</h3>
-      <p>Collaborated on UI/UX and layout for a skincare recommendation app using user data for personalized suggestions. Designed icons, color palette, and user flow.</p>
+    <div class="tab-panels">
+      <div class="tab-track" data-active="projects">
+        <div class="tab-panel" id="projects-panel" role="tabpanel" aria-label="Featured Projects">
+          <div class="project">
+            <h3>Gemo · College Connection App</h3>
+            <p>Designed the user interface in Figma and engineered the backend with Firebase and Firestore for real-time student pairing. Created visual identity, flow, and data structure.</p>
 
-      <div class="slideshow">
-        <img src="images/bsb_all_screens.png" alt="BSB UI wireframe" class="active" data-link="">
-        <img src="images/bsb_ui.png" alt="BSB final mockup" data-link="https://www.figma.com/proto/zfaKPR5C2cj47xSKCmiVeo/FinalFigmaUPDATED?node-id=0-1&t=uX5sgB90bjYYDxv6-1" style="width:50%">
-        <button class="slide-btn" onclick="nextSlide(this)">Next</button>
-        <p><a class="figma-link" href="#" target="_blank" style="display:none;">Open prototype in Figma</a></p>
+            <a href="https://www.figma.com/proto/rI75nsc1Zceq0Mgsyzbr2H/EGR302---gemo?node-id=69-19&t=z5oEXzA1VDTi8Aoy-1&starting-point-node-id=14%3A24" target="_blank">
+            <img src="images/gemo_ui.png" alt="Gemo UI mockup">
+            </a>
+            <p><em>Click image to open interactive prototype in Figma</em></p>
+
+            <p><a href="https://github.com/ParkerWilliams1/gemo">View code</a></p>
+          </div>
+
+          <div class="project">
+            <h3>Big Sister Bot · Skincare Recommender</h3>
+            <p>Collaborated on UI/UX and layout for a skincare recommendation app using user data for personalized suggestions. Designed icons, color palette, and user flow.</p>
+
+            <div class="slideshow">
+              <img src="images/bsb_all_screens.png" alt="BSB UI wireframe" class="active" data-link="">
+              <img src="images/bsb_ui.png" alt="BSB final mockup" data-link="https://www.figma.com/proto/zfaKPR5C2cj47xSKCmiVeo/FinalFigmaUPDATED?node-id=0-1&t=uX5sgB90bjYYDxv6-1" style="width:50%">
+              <button class="slide-btn" onclick="nextSlide(this)">Next</button>
+              <p><a class="figma-link" href="#" target="_blank" style="display:none;">Open prototype in Figma</a></p>
+            </div>
+            
+            <p><em>Click “Next” to toggle between wireframe and final mockup</em></p>
+            <p><a href="https://www.figma.com/proto/zfaKPR5C2cj47xSKCmiVeo/FinalFigmaUPDATED?node-id=0-1&t=uX5sgB90bjYYDxv6-1" target="_blank">Open prototype in Figma</a></p>
+          </div>
+
+          <div class="project">
+            <h3>Card-Based Game Engine</h3>
+            <p>Developing a custom game engine in LWJGL for a narrative-driven card game. Handling design, gameplay logic, and story integration. Currently in design phase.</p>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="research-panel" role="tabpanel" aria-label="Research" aria-hidden="true">
+          <div class="project">
+            <h3>HCI Research · Context-Aware Interfaces</h3>
+            <p>Investigating how personal context and device posture change the way users request information on mobile. Ran diary studies and clickstream reviews to shape adaptive UI states and reduce friction in search workflows.</p>
+          </div>
+
+          <div class="project">
+            <h3>Applied AI · Conversational Prompts for Safety</h3>
+            <p>Prototyping prompt strategies that steer LLM assistants toward safer product recommendations. Built evaluation harnesses and qualitative rubrics to measure tone, empathy, and clarity in responses.</p>
+          </div>
+
+          <div class="project">
+            <h3>Data Visualization · Rapid Sensing Dashboards</h3>
+            <p>Designed lightweight dashboards for field data collection, emphasizing offline caching, progressive disclosure of metrics, and fast annotation for analysts.</p>
+          </div>
+        </div>
       </div>
-      
-      <p><em>Click “Next” to toggle between wireframe and final mockup</em></p>
-      <p><a href="https://www.figma.com/proto/zfaKPR5C2cj47xSKCmiVeo/FinalFigmaUPDATED?node-id=0-1&t=uX5sgB90bjYYDxv6-1" target="_blank">Open prototype in Figma</a></p>
-    </div>
-
-    <div class="project">
-      <h3>Card-Based Game Engine</h3>
-      <p>Developing a custom game engine in LWJGL for a narrative-driven card game. Handling design, gameplay logic, and story integration. Currently in design phase.</p>
     </div>
   </section>
 
@@ -108,6 +159,30 @@
   </footer>
 
   <script>
+  const tabButtons = document.querySelectorAll(".tab-btn");
+  const tabTrack = document.querySelector(".tab-track");
+
+  tabButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      if (button.classList.contains("active")) return;
+
+      tabButtons.forEach((btn) => {
+        btn.classList.remove("active");
+        btn.setAttribute("aria-selected", "false");
+      });
+
+      button.classList.add("active");
+      button.setAttribute("aria-selected", "true");
+
+      const showResearch = button.dataset.target === "research";
+      tabTrack.classList.toggle("show-research", showResearch);
+      tabTrack.setAttribute("data-active", showResearch ? "research" : "projects");
+
+      document.getElementById("projects-panel").setAttribute("aria-hidden", showResearch ? "true" : "false");
+      document.getElementById("research-panel").setAttribute("aria-hidden", showResearch ? "false" : "true");
+    });
+  });
+
   function nextSlide(button) {
     const container = button.closest(".slideshow");
     const imgs = container.querySelectorAll("img");
