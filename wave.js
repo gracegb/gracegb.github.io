@@ -56,11 +56,11 @@ window.addEventListener("DOMContentLoaded", () => {
     let loc = 90;
 
     function setupGrid() {
-      const colSize = waveCanvas.width / cols;
+      const colSize = cols > 1 ? waveCanvas.width / (cols - 1) : waveCanvas.width;
       const rowSize = waveCanvas.height / rows;
       grid = Array.from({ length: cols }, (_, i) =>
         Array.from({ length: rows }, (_, j) => ({
-          x: colSize / 2 + i * colSize,
+          x: i * colSize,
           y: rowSize / 2 + j * rowSize,
           r: rowSize * 0.35,
           phase: i * loc + j * loc
@@ -84,19 +84,22 @@ window.addEventListener("DOMContentLoaded", () => {
       ctx.clearRect(0, 0, waveCanvas.width, waveCanvas.height);
       const freq = 0.0022;
       const amp = (waveCanvas.height / rows) * 0.18;
+      const dotRadius = Math.max(
+        Math.min((waveCanvas.height / rows) * 0.12, 3.2),
+        1.4
+      );
+      ctx.fillStyle = "rgba(194, 208, 229, 0.9)";
 
       for (let j = 0; j < rows; j++) {
-        ctx.beginPath();
         for (let i = 0; i < cols; i++) {
           const cell = grid[i][j];
           const wobble = Math.sin((time + cell.phase) * freq) * amp;
           const sway = Math.cos(time * 0.001 + j * 0.3) * amp * 0.25;
           const y = cell.y + wobble + sway;
-          i === 0 ? ctx.moveTo(cell.x, y) : ctx.lineTo(cell.x, y);
+          ctx.beginPath();
+          ctx.arc(cell.x, y, dotRadius, 0, Math.PI * 2);
+          ctx.fill();
         }
-        ctx.strokeStyle = "rgba(215, 231, 255, 0.8)";
-        ctx.lineWidth = 1.5;
-        ctx.stroke();
       }
 
       requestAnimationFrame(draw);
