@@ -8,6 +8,32 @@
   <style>
     body { font-family: "Inter", sans-serif; margin: 0; background: #fafafa; color: #222; line-height: 1.6; }
     header { text-align: center; padding: 3rem 1rem; }
+    .profile-portrait {
+      width: 148px;
+      height: 148px;
+      border-radius: 50%;
+      margin: 0 auto 1.5rem;
+      overflow: hidden;
+      position: relative;
+      border: 4px solid #fff;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+      background: radial-gradient(circle at 30% 20%, #e5edff, #d7deeb 55%, #cfd7e3);
+      display: grid;
+      place-items: center;
+    }
+    .profile-portrait img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .profile-portrait span {
+      display: none;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #20304a;
+    }
+    .profile-portrait.empty span { display: inline; }
     header h1 { margin: 0; font-size: 2rem; }
     header p { color: #555; }
     section { max-width: 800px; margin: auto; padding: 2rem 1rem; }
@@ -73,6 +99,10 @@
 
 <body>
   <header>
+    <div class="profile-portrait">
+      <img src="images/profile.jpg" alt="Grace Bergquist" onerror="this.closest('.profile-portrait').classList.add('empty'); this.remove();">
+      <span aria-hidden="true">GB</span>
+    </div>
     <h1>Grace Bergquist</h1>
     <p>CS + Graphic Design | HCI, Trustworthy AI, Human-Machine Teaming, Mixed Reality</p>
     <p><a href="files/Grace-Bergquist-Resume.pdf" target="_blank">Resume (PDF)</a> · 
